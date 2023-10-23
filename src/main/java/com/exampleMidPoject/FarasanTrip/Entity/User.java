@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Inheritance(strategy=InheritanceType.JOINED)
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public class User {
     @Id
     private Long userId;
     private String username;
     private String email;
-    private String password;
-
+    //private String password;
+    private String role;
 
 }
