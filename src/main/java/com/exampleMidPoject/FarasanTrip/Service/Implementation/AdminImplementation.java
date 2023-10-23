@@ -18,4 +18,15 @@ public class AdminImplementation implements AdminService {
     public List<Admin> getAllAdmin() {
         return adminRepo.findAll();
     }
+
+    @Override
+    public Admin createNewAdmin(Admin admin) {
+        return adminRepo.save(admin);
+    }
+
+
+
+
+
+
 }

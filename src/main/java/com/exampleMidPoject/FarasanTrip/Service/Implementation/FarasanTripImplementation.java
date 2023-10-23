@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FarasanTripImplementation implements FarasanTripService {
@@ -23,4 +24,20 @@ public class FarasanTripImplementation implements FarasanTripService {
     public List<FarasanTrip> getAllTrips() {
         return farasanTripRepo.findAll();
     }
+
+    @Override
+    public String updateTripById(String farryName, FarasanTrip farasanTrip) {
+        Optional<FarasanTrip> optionalFarasanTrip = farasanTripRepo.findById(farryName);
+
+        if (optionalFarasanTrip.isPresent()) {
+            FarasanTrip trip = optionalFarasanTrip.get();
+            trip.setFarryName(farasanTrip.getFarryName());
+            farasanTripRepo.save(trip);
+            return "Information Updated";
+        }
+
+        return "Information UnUpdated";
+    }
+
+
 }

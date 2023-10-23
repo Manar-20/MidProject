@@ -9,4 +9,6 @@ public interface FarasanTripService {
     FarasanTrip addNewTrip(FarasanTrip trip);
 
     List<FarasanTrip> getAllTrips();
+
+    String updateTripById(String farryName, FarasanTrip farasanTrip);
 }
