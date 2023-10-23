@@ -31,7 +31,8 @@ public class FarasanTripImplementation implements FarasanTripService {
 
         if (optionalFarasanTrip.isPresent()) {
             FarasanTrip trip = optionalFarasanTrip.get();
-            trip.setFarryName(farasanTrip.getFarryName());
+            trip.setPrice(farasanTrip.getPrice());
+            trip.setAvailableSeats(farasanTrip.getAvailableSeats());
             farasanTripRepo.save(trip);
             return "Information Updated";
         }
