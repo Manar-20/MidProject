@@ -11,18 +11,36 @@ import java.util.List;
 public class FarasanTripControllar {
     @Autowired
    private FarasanTripImplementation farasanTripImpl;
+
+    @PostMapping("/add-new-Trip")
+    public String addNewTrip(@RequestBody FarasanTrip trip) {
+       try {
+        farasanTripImpl.addNewTrip(trip);
+           String message = "Trip created Successful";
+           return message ;
+       }
+       catch(Exception e){
+           String errorMessage ="Trip created Unsuccessful" +e.getMessage();
+           return errorMessage;
+
+       }
+    }
     @GetMapping("/trips")
     public List<FarasanTrip> getAllTrips(){
         return farasanTripImpl.getAllTrips();
     }
-
-    @PostMapping("/add-new-Trip")
-    public FarasanTrip addNewTrip(@RequestBody FarasanTrip trip) {
-
-        return farasanTripImpl.addNewTrip(trip);
-    }
     @PutMapping("/Update-Trip_Info/{farryName}")
     public String updateTrip(@PathVariable String farryName, @RequestBody FarasanTrip  farasanTrip) {
-        return farasanTripImpl.updateTripById(farryName, farasanTrip);
+         farasanTripImpl.updateTripById(farryName, farasanTrip);
+        try {
+            farasanTripImpl.updateTripById(farryName, farasanTrip);
+            String message = "Trip Information is Updated";
+            return message ;
+        }
+        catch(Exception e){
+            String errorMessage ="Trip Information Not Updated" +e.getMessage();
+            return errorMessage;
+
+        }
     }
 }

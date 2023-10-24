@@ -14,7 +14,7 @@ import java.util.List;
 public class AdminController {
     @Autowired
     AdminImplementation adminImpl;
-                                                                                     @PostMapping("/create-Admin")
+    @PostMapping("/create-Admin")
     public String createNewAdmin(@RequestBody Admin admin) {
         try {
             adminImpl.createNewAdmin(admin);
@@ -28,7 +28,6 @@ public class AdminController {
         }
 
     }
-
     @GetMapping("/Admins")
     public List<Admin> Admin(){
 
