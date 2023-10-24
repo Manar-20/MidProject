@@ -18,6 +18,7 @@ public class FarasanTripControllar {
 
     @PostMapping("/add-new-Trip")
     public FarasanTrip addNewTrip(@RequestBody FarasanTrip trip) {
+
         return farasanTripImpl.addNewTrip(trip);
     }
     @PutMapping("/Update-Trip_Info/{farryName}")
