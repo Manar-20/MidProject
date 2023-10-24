@@ -16,21 +16,25 @@ public class CustmoerImplementation implements CustomerService {
 
     @Override
     public Customer addNewCustomer(Customer customer) {
+        // This method adds a new customer by saving the provided Customer object to the database using the CustomerRepository.
         return customerRepo.save(customer);
     }
-
+    // This method retrieves a list of all customers by calling the findAll() method of the CustomerRepository.
     @Override
     public List<Customer> getAllAdmin() {
         return customerRepo.findAll();
     }
 
+    // This method deletes a customer by their userID.
     @Override
     public String deleteByUserId(Long userId) {
         Optional<Customer> customerOptional=customerRepo.findByUserId(userId);
+        // If a customer with the specified userID is found, delete them from the database.
         if (customerOptional.isPresent()){
             customerRepo.deleteById(userId);
             return "Customer is Deleted";
         }else {
+            // If no customer with the specified userID is found, return a message indicating that the customer is not found.
             return "The Customer is Not Found";
 
         }

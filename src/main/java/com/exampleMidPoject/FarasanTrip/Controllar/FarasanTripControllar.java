@@ -12,8 +12,10 @@ public class FarasanTripControllar {
     @Autowired
    private FarasanTripImplementation farasanTripImpl;
 
+
     @PostMapping("/add-new-Trip")
     public String addNewTrip(@RequestBody FarasanTrip trip) {
+        // Create a new trip and return a success message or an error message if failed.
        try {
         farasanTripImpl.addNewTrip(trip);
            String message = "Trip created Successful";
@@ -27,10 +29,12 @@ public class FarasanTripControllar {
     }
     @GetMapping("/trips")
     public List<FarasanTrip> getAllTrips(){
+        // Get a list of all trips.
         return farasanTripImpl.getAllTrips();
     }
     @PutMapping("/Update-Trip_Info/{farryName}")
     public String updateTrip(@PathVariable String farryName, @RequestBody FarasanTrip  farasanTrip) {
+        // Update trip information and return a success message or an error message if failed.
          farasanTripImpl.updateTripById(farryName, farasanTrip);
         try {
             farasanTripImpl.updateTripById(farryName, farasanTrip);

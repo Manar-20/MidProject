@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+// Entity class for representing user data.
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+// Uses TABLE_PER_CLASS inheritance strategy, which creates a separate table for each subclass.
 public class User {
     @Id
     private Long userId;

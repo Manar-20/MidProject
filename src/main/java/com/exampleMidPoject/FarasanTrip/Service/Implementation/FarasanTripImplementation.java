@@ -15,16 +15,19 @@ public class FarasanTripImplementation implements FarasanTripService {
     @Autowired
     FarasanTripRepository farasanTripRepo;
 
+    // Add a new FarasanTrip to the repository.
     @Override
     public FarasanTrip addNewTrip(FarasanTrip trip) {
         return farasanTripRepo.save(trip);
     }
 
+    // Get a list of all FarasanTrips from the repository.
     @Override
     public List<FarasanTrip> getAllTrips() {
         return farasanTripRepo.findAll();
     }
 
+    // Update the information of a FarasanTrip by its unique ferryName.
     @Override
     public String updateTripById(String farryName, FarasanTrip farasanTrip) {
         Optional<FarasanTrip> optionalFarasanTrip = farasanTripRepo.findById(farryName);

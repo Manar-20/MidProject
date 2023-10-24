@@ -22,16 +22,12 @@ public class BookingImplementation implements BookingService {
     @Autowired
     FarasanTripRepository farasanTripRepository;
 
-    @Override
-    public List<Booking> getAllBooking() {
-        return bookingRepo.findAll();
-    }
-
+    // This method is used to create a new booking.
     @Override
     @ResponseStatus(HttpStatus.CREATED)
     public String createNewBooking(Booking booking) {
         FarasanTrip bookedFerry = booking.getTrip();
-
+// Check if there are available seats for the booked trip.
         if (bookedFerry.getAvailableSeats() > 0) {
             int seat=bookedFerry.getAvailableSeats();
             bookedFerry.setAvailableSeats(bookedFerry.getAvailableSeats()-1);
@@ -39,8 +35,14 @@ public class BookingImplementation implements BookingService {
             bookingRepo.save(booking);
             return "Booking added successfully.";
         } else {
+            // If there are no available seats, throw an exception with a message.
             throw new IllegalArgumentException("No available seats for this trip.");
         }
+    }
+    // This method retrieves a list of all bookings in the system.
+    @Override
+    public List<Booking> getAllBooking() {
+        return bookingRepo.findAll();
     }
 }
 

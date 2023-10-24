@@ -15,6 +15,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+// Entity class for representing FarasanTrip data.
 public class FarasanTrip {
     @Id
     private String farryName;

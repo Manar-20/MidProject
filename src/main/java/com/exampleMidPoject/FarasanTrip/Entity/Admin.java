@@ -6,7 +6,7 @@ import lombok.*;
 @Entity
 @NoArgsConstructor
 public class Admin extends User {
-
+    // Constructor for creating an Admin with specific attributes.
     public Admin(Long userId, String username, String email, String role) {
         super(userId, username, email, role);
     }

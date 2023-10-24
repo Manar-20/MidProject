@@ -17,27 +17,29 @@ import java.util.List;
 public class BookingControllar {
     @Autowired
     private BookingImplementation bookingImpl;
-    @Autowired
-    FarasanTripRepository farasanTripRepository;
-    @Autowired
-    BookingRepository bookingRepository;
+
+    // This endpoint allows you to create a new booking
     @PostMapping("/Add-new-booking")
     public String createNewBooking(@RequestBody Booking booking) {
         try {
+            // Call the BookingImplementation service to create a new booking.
             bookingImpl.createNewBooking(booking);
+            // If the creation is successful, return a success message.
             String message = "Booking Added Successful";
             return message ;
         }
         catch(Exception e){
+            // If there's an exception, return an error message with the exception details.
             String errorMessage ="Booking Added Unsuccessful" +e.getMessage();
             return errorMessage;
 
         }
 
     }
-
-    @GetMapping("/All_Booking")
+    // This endpoint allows you to retrieve a list of all bookings.
+    @GetMapping("/All-Booking")
     public List<Booking> booking(){
+        // Call the BookingImplementation service to get a list of all bookings.
         return bookingImpl.getAllBooking();
     }
 }

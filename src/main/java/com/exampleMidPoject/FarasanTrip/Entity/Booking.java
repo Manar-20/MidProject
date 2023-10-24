@@ -21,5 +21,5 @@ public class Booking {
     @ManyToOne
     private FarasanTrip trip;
     private LocalDate bookingDate;
-
+// This class represents a Booking entity in the system, which is used to store booking information.
 }

@@ -12,19 +12,17 @@ import java.util.List;
 public class AdminImplementation implements AdminService {
     @Autowired
     AdminRepository adminRepo;
-
-
-    @Override
-    public List<Admin> getAllAdmin() {
-        return adminRepo.findAll();
-    }
-
+    // This method is used to create a new Admin in the system.
     @Override
     public Admin createNewAdmin(Admin admin) {
         return adminRepo.save(admin);
     }
 
-
+    // This method retrieves a list of all Admins in the system.
+    @Override
+    public List<Admin> getAllAdmin() {
+        return adminRepo.findAll();
+    }
 
 
 
