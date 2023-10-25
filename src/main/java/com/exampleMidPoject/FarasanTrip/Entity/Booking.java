@@ -1,13 +1,12 @@
 package com.exampleMidPoject.FarasanTrip.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Data
@@ -15,11 +14,12 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class Booking {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long BookingId;
     @ManyToOne
     private Customer customer;
     @ManyToOne
     private FarasanTrip trip;
-    private LocalDate bookingDate;
+    private String bookingDate;
 // This class represents a Booking entity in the system, which is used to store booking information.
 }

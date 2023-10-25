@@ -47,7 +47,7 @@ class CustomerControllarTest {
     }
     @Test
     public void testaddNewCustomer() throws Exception {
-        Customer customer = new Customer(12345L,"Bader","bader@example.com","Customer");
+        Customer customer = new Customer(1108L,"Bader","bader@example.com","Customer");
         String requestBody = objectMapper.writeValueAsString(customer);
 
         MvcResult mvcResult =

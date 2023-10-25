@@ -2,8 +2,11 @@ package com.exampleMidPoject.FarasanTrip.Controllar;
 
 import com.exampleMidPoject.FarasanTrip.Entity.Admin;
 import com.exampleMidPoject.FarasanTrip.Entity.FarasanTrip;
+import com.exampleMidPoject.FarasanTrip.Repository.AdminRepository;
 import com.exampleMidPoject.FarasanTrip.Repository.CustomerRepository;
+import com.exampleMidPoject.FarasanTrip.Repository.FarasanTripRepository;
 import com.exampleMidPoject.FarasanTrip.Service.Implementation.CustmoerImplementation;
+import com.exampleMidPoject.FarasanTrip.Service.Implementation.FarasanTripImplementation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +23,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -30,10 +37,11 @@ class FarasanTripControllarTest {
     private WebApplicationContext webApplicationContext;
 
     @Autowired
-    private CustomerRepository customerRepo;
-
+    private FarasanTripRepository farasanTripRepository;
+@Autowired
+private AdminRepository adminRepository;
     @Mock
-    private CustmoerImplementation custmoerImplementation;
+    private FarasanTripImplementation farasanTripImplementation;
     private MockMvc mockMvc;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -41,24 +49,44 @@ class FarasanTripControllarTest {
     public void setup(){
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
+
+
     @Test
-    public void testCreateNewAdmin() throws Exception {
-        Admin admin = new Admin(5L,"Lama","lama@gmail.com","Admin");
-        FarasanTrip farasanTrip = new FarasanTrip("F101", 12, 120,admin );
+    public void testAddNewTrip() throws Exception {
+        // Create a sample FarasanTrip object for the reques
+        Admin admin = new Admin(12L,"Jood","jood12@example.com","Admin");
+        adminRepository.save(admin);
+        FarasanTrip newTrip = new FarasanTrip("F103", 4, 99.99, admin);
+
+        // Mock the behavior of the farasanTripImpl service
+        when(farasanTripImplementation.addNewTrip(any(FarasanTrip.class)));
 
         // Convert the FarasanTrip object to JSON
         ObjectMapper objectMapper = new ObjectMapper();
-        String requestBody = objectMapper.writeValueAsString(farasanTrip);
-        String requetsBody = objectMapper.writeValueAsString(admin);
+        String requestBody = objectMapper.writeValueAsString(newTrip);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/add-new-Trip")
-                        .content(requestBody)
+        mockMvc.perform(post("/add-new-Trip")
                         .contentType(MediaType.APPLICATION_JSON)
-                )
+                        .content(requestBody))
                 .andExpect(status().isOk())
-                .andReturn();
+                .andExpect(content().string("Trip created Successful"));
+    }
+    @Test
+    public void testUpdateTrip() throws Exception {
+        String farryName = "F102";
+        Admin admin = new Admin(11L,"Hamad","hamad@example.com","Admin");
+        adminRepository.save(admin);
+        FarasanTrip updatedTrip = new FarasanTrip("F102", 4, 99.99, admin);
+        farasanTripRepository.save(updatedTrip);
+        // Mock the behavior of the farasanTripImpl service to throw an exception
+        when(farasanTripImplementation.updateTripById(farryName, updatedTrip)).thenThrow(new RuntimeException("Error message"));
 
-        assertTrue(mvcResult.getResponse().getContentAsString().contains("Admin"));
+        // Perform a PUT request to the /Update-Trip_Info endpoint
+        mockMvc.perform(put("/Update-Trip_Info/{farryName}", farryName)
+                        .contentType("application/json")
+                        .content(new ObjectMapper().writeValueAsString(updatedTrip)))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Trip Information is Updated"));
     }
     @Test
     public void testGetAllTrips() throws Exception {
@@ -68,23 +96,4 @@ class FarasanTripControllarTest {
                 .andReturn();
         assertTrue(mvcResult.getResponse().getContentAsString().contains("F115"));
     }
-    @Test
-    public void testUpdateTrip() throws Exception {
-        String farryName = "F101";
-        Admin admin = new Admin(5L,"Lama","lama@gmail.com","Admin");
-        FarasanTrip updatedTrip = new FarasanTrip(farryName, 15, 150,admin );
-
-        // Convert to JSON
-        ObjectMapper objectMapper = new ObjectMapper();
-        String requestBody = objectMapper.writeValueAsString(updatedTrip);
-
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put("/Update-Trip_Info/{farryName}", farryName)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestBody)
-                )
-                .andExpect(status().isOk())
-                .andReturn();
-        assertTrue(mvcResult.getResponse().getContentAsString().contains("Trip Information is Updated"));
-    }
-
 }
