@@ -1,0 +1,56 @@
+package com.exampleMidPoject.FarasanTrip.Controllar;
+
+import com.exampleMidPoject.FarasanTrip.Entity.Admin;
+import com.exampleMidPoject.FarasanTrip.Entity.Booking;
+import com.exampleMidPoject.FarasanTrip.Entity.Customer;
+import com.exampleMidPoject.FarasanTrip.Entity.FarasanTrip;
+import com.exampleMidPoject.FarasanTrip.Repository.AdminRepository;
+import com.exampleMidPoject.FarasanTrip.Repository.BookingRepository;
+import com.exampleMidPoject.FarasanTrip.Service.Implementation.AdminImplementation;
+import com.exampleMidPoject.FarasanTrip.Service.Implementation.BookingImplementation;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+
+import java.time.LocalDate;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+class BookingControllarTest {
+    @Autowired
+    private WebApplicationContext webApplicationContext;
+
+    @Autowired
+    private BookingRepository bookingRepository;
+
+    @Mock
+    private BookingImplementation bookingImplementation ;
+    private MockMvc mockMvc;
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
+    @BeforeEach
+    public void setup(){
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+    }
+
+
+}
