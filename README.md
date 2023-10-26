@@ -57,7 +57,7 @@ Payment integration
 
 # Resources
 Spring Boot Documentation
-Spring Data JPA Guide
+
 
 
 
