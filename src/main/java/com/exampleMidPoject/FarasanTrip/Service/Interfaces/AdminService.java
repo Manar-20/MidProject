@@ -11,5 +11,5 @@ public interface AdminService {
     Admin createNewAdmin(Admin admin);
 
 
-
+     String deleteByUserId(Long userId);
 }

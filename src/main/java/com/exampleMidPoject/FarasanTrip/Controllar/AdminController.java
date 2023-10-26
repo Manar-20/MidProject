@@ -43,6 +43,20 @@ public class AdminController {
         // Call the AdminImplementation service to get a list of all Admins.
         return adminImpl.getAllAdmin();
     }
+    @DeleteMapping("/delete-Admin/{userId}")
+    @ResponseStatus
+    public ResponseEntity<String> deleteAdmin(@PathVariable Long userId) {
+        try {
+            // Call the AdminImplementation service to delete a customer by userID.
+            adminImpl.deleteByUserId(userId);
+            String message = "Admin Deleted Successful";
+            return ResponseEntity.status(HttpStatus.OK).body(message);
+        } catch (Exception e) {
+            // If there's an exception return an error message with the exception details.
+            String errorMessage = "Admin Deleted Unsuccessful" + e.getMessage();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+        }
+    }
 
 
 }

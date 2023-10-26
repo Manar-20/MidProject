@@ -36,10 +36,26 @@ public class BookingControllar {
         }
 
     }
+
     // This endpoint allows you to retrieve a list of all bookings.
     @GetMapping("/All-Booking")
     public List<Booking> booking(){
         // Call the BookingImplementation service to get a list of all bookings.
         return bookingImpl.getAllBooking();
     }
+    @DeleteMapping("/delete-Booking/{bookingId}")
+    @ResponseStatus
+    public ResponseEntity<String> deleteBooking(@PathVariable Long bookingId) {
+        try {
+            // Call the BookingImplementation service to delete a customer by userID.
+            bookingImpl.deleteByBookingId(bookingId);
+            String message = "Booking Deleted Successful";
+            return ResponseEntity.status(HttpStatus.OK).body(message);
+        } catch (Exception e) {
+            // If there's an exception return an error message with the exception details.
+            String errorMessage = "Booking Deleted Unsuccessful" + e.getMessage();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+        }
+    }
+
 }

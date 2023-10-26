@@ -14,8 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class Booking {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long BookingId;
+    private Long bookingId;
     @ManyToOne
     private Customer customer;
     @ManyToOne

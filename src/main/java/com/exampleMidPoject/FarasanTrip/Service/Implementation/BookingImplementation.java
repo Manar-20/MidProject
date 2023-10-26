@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookingImplementation implements BookingService {
@@ -39,11 +40,25 @@ public class BookingImplementation implements BookingService {
             throw new IllegalArgumentException("No available seats for this trip.");
         }
     }
+
+
+
     // This method retrieves a list of all bookings in the system.
     @Override
     public List<Booking> getAllBooking() {
         return bookingRepo.findAll();
     }
+    @Override
+    public String deleteByBookingId(Long bookingId) {
+        Optional<Booking> bookingOptional = bookingRepo.findByBookingId(bookingId);
+        // If a Booking with the specified userID is found, delete them from the database.
+        if (bookingOptional.isPresent()) {
+            bookingRepo.deleteById(bookingId);
+            return "Booking is Deleted";
+        } else {
+            // If no Booking with the specified userID is found, return a message indicating that the customer is not found.
+            return "The BookingId is Not Found";
+        }    }
 }
 
 

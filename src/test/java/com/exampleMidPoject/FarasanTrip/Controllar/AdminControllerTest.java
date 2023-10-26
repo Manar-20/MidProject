@@ -25,6 +25,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -68,6 +69,15 @@ public class AdminControllerTest {
                 .andReturn();
         assertTrue(mvcResult.getResponse().getContentAsString().contains("Elham"));
     }
+    @Test
+    public void testDeleteAdmin() throws Exception {
+        Long userId = 12345L;
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/delete-Admin/{userId}", userId))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Admin Deleted Successful"));
+    }
+
 
 
 }

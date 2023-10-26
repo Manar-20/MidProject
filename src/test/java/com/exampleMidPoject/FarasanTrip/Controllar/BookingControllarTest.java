@@ -96,5 +96,13 @@ class BookingControllarTest {
             assertTrue(mvcResult.getResponse().getContentAsString().contains("Customer"));
 
     }
+    @Test
+    public void testDeleteBooking() throws Exception {
+        Long bookingId = 1L;
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/delete-Booking/{bookingId}", bookingId))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Booking Deleted Successful"));
+    }
 
 }
